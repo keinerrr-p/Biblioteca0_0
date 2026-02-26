@@ -16,6 +16,7 @@ public class LibroController : Controller
         [HttpGet]
         public IActionResult register()
         {
+            ViewBag.listalibros = _context.Libros.ToList();
             return View();
         }
 
@@ -30,15 +31,8 @@ public class LibroController : Controller
 
             return RedirectToAction("Registro","Usuario");
         }
+         var listaLibros = _context.Libros.ToList();
         return View(nuevolibro);
     }
-        
-
-
-    
-        
-    
-
-
-    
+          
 }

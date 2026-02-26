@@ -1,4 +1,5 @@
 @model Biblioteca0_0.Models.Libro
+
 @{
     ViewData["Title"] = "Crear Libro";
 }
@@ -36,11 +37,37 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Guardar Libro</button>
                 <a asp-action="register" class="btn btn-secondary">Volver al listado</a>
+                
             </div>
+            
+     
+
+           
             
         </form>
     </div>
 </div>
+<hr />
+<h3>Libros Registrados</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Título</th>
+            <th>Autor</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var libro in ViewBag.ListaLibros)
+        {
+            <tr>
+                <td>@libro.Codlibro</td>
+                <td>@libro.Titulo</td>
+                <td>@libro.Autor</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
