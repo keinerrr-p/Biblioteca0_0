@@ -1,0 +1,41 @@
+create database if not exists biblioteca01;
+use biblioteca01;
+
+create table usuarios(
+idusuario int primary key auto_increment,
+tipoDoc enum('TI','CC','PPT') not null,
+numDoc varchar(20) not null,
+nombre varchar(20) not null,
+correo varchar(50) unique not null,
+telefono varchar(20) 
+);
+
+create table libros(
+idlibro int primary key auto_increment,
+codlibro varchar(50) unique,
+titulo varchar(50),
+autor varchar(20) default 'anonimo',
+publicacion datetime,
+genero varchar(50)
+);
+
+create table prestamo(
+idprestamo int primary key auto_increment,
+idusuario int,
+idlibro int,
+fecha datetime,
+estado enum('Bueno','Regular','dañado'),
+fechadevo date,
+foreign key (idusuario) references usuarios(idusuario),
+foreign key (idlibro) references libros(idlibro)
+);
+
+create table devolucion(
+iddevo int primary key auto_increment,
+idprestamo int,
+fechadevo datetime,
+estado enum('normal','dañado','regular'),
+multa enum('si','no'),
+monto decimal(12.2) default 0.00,
+foreign key (idprestamo) references prestamo(idprestamo)
+);
