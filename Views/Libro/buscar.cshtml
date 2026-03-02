@@ -1,0 +1,21 @@
+
+@model Biblioteca0_0.Models.Libro
+
+<h2>Buscar Producto</h2>
+
+<!-- Formulario que envía el código -->
+<form method="get" action="/Libro/buscar">
+    <input type="text" name="Codlibro" placeholder="Ingresa el código" />
+    <button type="submit">Buscar</button>
+</form>
+
+
+
+@if (Model != null)
+{
+    <h3>Resultado:</h3>
+    <p>Código: @Model.Codlibro</p>
+    <p>titulo: @Model.Titulo</p>
+    <p>publicacion: @Model.Publicacion</p>
+    <p>Autor: @Model.Autor</p>
+}

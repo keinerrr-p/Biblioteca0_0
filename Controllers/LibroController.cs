@@ -20,6 +20,17 @@ public class LibroController : Controller
             return View();
         }
 
+        public IActionResult Buscar(string codlibro)
+        {
+            var producto = _context.Libros
+                                .FirstOrDefault(p => p.Codlibro == codlibro);
+
+            if (producto == null)
+                return View("buscar"); 
+
+            return View(producto);
+        }
+
         [HttpPost]
 
         public IActionResult register(Libro nuevolibro)

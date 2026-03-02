@@ -1,0 +1,26 @@
+<!-- Views/Producto/Editar.cshtml -->
+@model Biblioteca0_0.Models.Libro
+
+<h2>Editar Libro</h2>
+
+<form method="post" action="/Libro/editar">
+    
+    <!-- ID oculto para saber cuál producto actualizar -->
+    <input type="hidden" name="Idlibro" value="@Model.Idlibro" />
+
+    <label>Código:</label>
+    <input type="text" name="Codlibro" value="@Model.Codlibro" />
+
+    <label>Nombre:</label>
+    <input type="text" name="Titulo" value="@Model.Titulo" />
+
+    <label>Autor:</label>
+    <input type="text" name="Autor" value="@Model.Autor" />
+
+    <label>Género:</label>
+    <input type="text" name="Genero" value="@Model.Genero" />
+
+    <button type="submit">Guardar cambios</button>
+    <a href="/Libro/buscar">Cancelar</a>
+</form>
+

@@ -13,7 +13,7 @@ public partial class Libro
 
     public string? Autor { get; set; }
 
-    public DateTime? Publicacion { get; set; }
+    public DateTime? Publicacion { get; set; } = DateTime.Now;
 
     public string? Genero { get; set; }
 
