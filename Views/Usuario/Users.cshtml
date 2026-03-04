@@ -1,0 +1,19 @@
+@model Biblioteca0_0.Models.Usuario 
+
+<h2>Buscar Usuario</h2>
+
+<form method="get" action="/Usuario/users">
+    <input type="text" name="Correo" placeholder="Ingresa el correo" />
+    <button type="submit">Buscar</button>
+</form>
+
+
+
+@if (Model != null)
+{
+    <h3>Resultado:</h3>
+    <p>Numero de documento: @Model.NumDoc</p>
+    <p>Nombre: @Model.Nombre</p>
+    <p>Correo: @Model.Correo</p>
+    <p>Telefono: @Model.Telefono</p>
+}

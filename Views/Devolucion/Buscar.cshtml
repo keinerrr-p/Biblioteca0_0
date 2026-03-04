@@ -1,0 +1,26 @@
+@model Biblioteca0_0.Models.Devolucion
+
+<h2>Buscar Devolución</h2>
+
+<form method="get" action="/Devolucion/Buscar">
+    <input type="number" name="id" placeholder="ID de devolución" />
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+@if (Model != null)
+{
+    <hr />
+    <h3>Resultado</h3>
+    <table class="table">
+        <tr>
+            <td><strong>ID:</strong> @Model.Iddevo</td>
+            <td><strong>Préstamo:</strong> @Model.Idprestamo</td>
+            <td><strong>Libro:</strong> @Model.IdprestamoNavigation?.IdlibroNavigation?.Titulo</td>
+            <td><strong>Usuario:</strong> @Model.IdprestamoNavigation?.IdusuarioNavigation?.Nombre</td>
+            <td><strong>Fecha devolución:</strong> @Model.Fechadevo</td>
+            <td>
+                <a asp-action="Editar" asp-route-id="@Model.Iddevo" class="btn btn-warning">Editar</a>
+            </td>
+        </tr>
+    </table>
+}

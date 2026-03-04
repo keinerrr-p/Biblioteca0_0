@@ -22,13 +22,20 @@ public class LibroController : Controller
 
         public IActionResult Buscar(string codlibro)
         {
-            var producto = _context.Libros
-                                .FirstOrDefault(p => p.Codlibro == codlibro);
+            var libro = _context.Libros.FirstOrDefault(p => p.Codlibro == codlibro);
 
-            if (producto == null)
+            if (libro == null)
                 return View("buscar"); 
 
-            return View(producto);
+            return View(libro);
+        }
+        [HttpGet]
+        public IActionResult Editar(string id)
+        {
+            var libros = _context.Libros.FirstOrDefault(l => l.Codlibro == id);
+            if (libros == null) return NotFound();
+            
+            return View(libros); 
         }
 
         [HttpPost]
@@ -44,6 +51,28 @@ public class LibroController : Controller
         }
          var listaLibros = _context.Libros.ToList();
         return View(nuevolibro);
+
+    }
+    [HttpPost]
+    public IActionResult Editar(Libro libroActualizado)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Libros.Update(libroActualizado);
+            _context.SaveChanges();
+            return RedirectToAction("buscar", new { codlibro = libroActualizado.Codlibro });
+        }
+        return View(libroActualizado);
+    }
+    public IActionResult Eliminar(string codlibro)
+    {
+        var libro = _context.Libros.FirstOrDefault(l => l.Codlibro == codlibro);
+        if (libro != null)
+        {
+            _context.Libros.Remove(libro);
+            _context.SaveChanges();
+        }
+        return RedirectToAction("register"); 
     }
           
 }

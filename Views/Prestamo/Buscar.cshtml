@@ -1,0 +1,25 @@
+@model Biblioteca0_0.Models.Prestamo
+
+<h2>Buscar Préstamo</h2>
+
+<form method="get" action="/Prestamo/Buscar">
+    <input type="number" name="id" placeholder="ID de préstamo" />
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+@if (Model != null)
+{
+    <hr />
+    <h3>Resultado</h3>
+    <table class="table">
+        <tr>
+            <td><strong>ID:</strong> @Model.Idprestamo</td>
+            <td><strong>Libro:</strong> @Model.IdlibroNavigation?.Titulo</td>
+            <td><strong>Usuario:</strong> @Model.IdusuarioNavigation?.Nombre</td>
+            <td><strong>Fecha:</strong> @Model.Fecha</td>
+            <td>
+                <a asp-action="Editar" asp-route-id="@Model.Idprestamo" class="btn btn-warning">Editar</a>
+            </td>
+        </tr>
+    </table>
+}

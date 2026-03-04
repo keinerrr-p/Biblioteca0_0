@@ -1,0 +1,43 @@
+@model Biblioteca0_0.Models.Prestamo
+
+<h2>Editar Préstamo</h2>
+
+<form method="post" action="/Prestamo/Editar">
+    <input type="hidden" name="Idprestamo" value="@Model.Idprestamo" />
+
+    <label>Libro</label>
+    <select name="Idlibro" class="form-control">
+        @foreach (var libro in ViewBag.ListaLibros)
+        {
+            if (libro.Idlibro == Model.Idlibro)
+            {
+                <option value="@libro.Idlibro" selected>@libro.Titulo</option>
+            }
+            else
+            {
+                <option value="@libro.Idlibro">@libro.Titulo</option>
+            }
+        }
+    </select>
+
+    <label>Usuario</label>
+    <select name="Idusuario" class="form-control">
+        @foreach (var u in ViewBag.ListaUsuarios)
+        {
+            if (u.Idusuario == Model.Idusuario)
+            {
+                <option value="@u.Idusuario" selected>@u.Nombre</option>
+            }
+            else
+            {
+                <option value="@u.Idusuario">@u.Nombre</option>
+            }
+        }
+    </select>
+
+    <label>Estado</label>
+    <input type="text" name="Estado" value="@Model.Estado" class="form-control" />
+
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    <a href="/Prestamo/Buscar">Cancelar</a>
+</form>

@@ -1,21 +1,30 @@
-
 @model Biblioteca0_0.Models.Libro
 
-<h2>Buscar Producto</h2>
+<h2>Buscar libro</h2>
 
-<!-- Formulario que envía el código -->
 <form method="get" action="/Libro/buscar">
     <input type="text" name="Codlibro" placeholder="Ingresa el código" />
     <button type="submit">Buscar</button>
 </form>
 
-
-
 @if (Model != null)
 {
+    <hr />
     <h3>Resultado:</h3>
-    <p>Código: @Model.Codlibro</p>
-    <p>titulo: @Model.Titulo</p>
-    <p>publicacion: @Model.Publicacion</p>
-    <p>Autor: @Model.Autor</p>
+    <table class="table">
+        <tr>
+            <td><strong>Código:</strong> @Model.Codlibro</td>
+            <td><strong>Título:</strong> @Model.Titulo</td>
+            <td><strong>Autor:</strong> @Model.Autor</td>
+            <td>
+                <a asp-action="Editar" asp-route-id="@Model.Codlibro" class="btn btn-warning">Editar</a>
+                
+                <form asp-action="Eliminar" method="post" style="display:inline;" 
+                      onsubmit="return confirm('¿Estás seguro de eliminar este libro?');">
+                    <input type="hidden" name="Codlibro" value="@Model.Codlibro" />
+                    <button type="submit" class="btn btn-danger">Borrar</button>
+                </form>
+            </td>
+        </tr>
+    </table>
 }

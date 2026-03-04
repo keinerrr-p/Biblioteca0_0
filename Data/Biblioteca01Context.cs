@@ -26,7 +26,7 @@ public partial class Biblioteca01Context : DbContext
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-  => optionsBuilder.UseMySql("server=localhost;port=3306;user=root;password=;database=biblioteca01", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.43-mysql"));
+  => optionsBuilder.UseMySql("server=localhost;port=3306;user=root;password=miesposita22;database=biblioteca01", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.43-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

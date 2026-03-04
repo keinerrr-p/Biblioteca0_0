@@ -36,7 +36,10 @@
 
             <div class="form-group mb-3">
                 <label asp-for="Correo" class="control-label"></label>
-                <input asp-for="Correo" class="form-control" />
+                <input asp-for="Correo" class="form-control" 
+                type="email"
+                 pattern=".+@@gmail\.com$" 
+           required/>
                 <span asp-validation-for="Correo" class="text-danger"></span>
             </div>
 
@@ -53,10 +56,14 @@
             
             
 
-            <div class="text-left"> 
-            <p>¿Quieres publicar un libro? <a asp-controller="Libro" asp-action="register">Publicalo Aqui</a></p> 
-            </div>
+            
 
+           
+
+            <a asp-controller="Usuario" asp-action="Users" class="btn btn-primary">
+                    Buscar Usuario
+                </a>
+ 
 
         </form>
     </div>

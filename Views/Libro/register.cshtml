@@ -40,13 +40,17 @@
                 
             </div>
 
-            <div class="text-left"> 
-            <p>¿Quieres publicar un libro? <a asp-controller="Libro" asp-action="buscar">Publicalo Aqui</a></p> 
-            </div>
-            
-     
+            <a asp-controller="Libro" asp-action="buscar" class="btn btn-primary">
+                    Buscar Libro
+                </a> 
 
-           
+                  <a asp-controller="Prestamo" asp-action="register" class="btn btn-primary">
+                    Préstamos
+                </a> 
+                  <a asp-controller="Devolucion" asp-action="register" class="btn btn-primary">
+                    Devoluciones
+                </a> 
+
             
         </form>
     </div>

@@ -18,6 +18,15 @@ namespace Biblioteca0_0.Controllers;
     {
         return View();
     }
+    public IActionResult Users(string correo)
+    {
+        var users = _context.Usuarios.FirstOrDefault(u => u.Correo == correo );
+         
+        if (users == null)  
+            return View("Users");
+
+        return View(users);
+    }
 
     [HttpPost]
 [ValidateAntiForgeryToken]

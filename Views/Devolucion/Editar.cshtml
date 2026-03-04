@@ -1,0 +1,34 @@
+@model Biblioteca0_0.Models.Devolucion
+
+<h2>Editar Devolución</h2>
+
+<form method="post" action="/Devolucion/Editar">
+    <input type="hidden" name="Iddevo" value="@Model.Iddevo" />
+
+    <label>Préstamo</label>
+    <select name="Idprestamo" class="form-control">
+        @foreach (var p in ViewBag.ListaPrestamos)
+        {
+            if (p.Idprestamo == Model.Idprestamo)
+            {
+                <option value="@p.Idprestamo" selected>@p.Idprestamo - @p.IdlibroNavigation?.Titulo</option>
+            }
+            else
+            {
+                <option value="@p.Idprestamo">@p.Idprestamo - @p.IdlibroNavigation?.Titulo</option>
+            }
+        }
+    </select>
+
+    <label>Estado</label>
+    <input type="text" name="Estado" value="@Model.Estado" class="form-control" />
+
+    <label>Multa</label>
+    <input type="text" name="Multa" value="@Model.Multa" class="form-control" />
+
+    <label>Monto</label>
+    <input type="number" step="0.01" name="Monto" value="@Model.Monto" class="form-control" />
+
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    <a href="/Devolucion/Buscar">Cancelar</a>
+</form>
