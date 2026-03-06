@@ -12,13 +12,16 @@ public class LibroController : Controller
         {
            _context = context;
         }
-
+        
         [HttpGet]
-        public IActionResult register()
-        {
-            ViewBag.listalibros = _context.Libros.ToList();
-            return View();
-        }
+    public IActionResult register()
+    {
+        ViewBag.listalibros = _context.Libros
+        .Where(l => l.Estado == "Activo") // ← comparar con string
+        .ToList();
+    return View();
+    }
+
 
         public IActionResult Buscar(string codlibro)
         {
@@ -39,19 +42,18 @@ public class LibroController : Controller
         }
 
         [HttpPost]
-
-        public IActionResult register(Libro nuevolibro)
+    public IActionResult register(Libro nuevolibro)
     {
-        if (ModelState.IsValid)
-        {
-            _context.Libros.Add(nuevolibro);
-            _context.SaveChanges();
+    if (ModelState.IsValid)
+    {
+        nuevolibro.Estado = "Activo"; // ← string
+        _context.Libros.Add(nuevolibro);
+        _context.SaveChanges();
 
-            return RedirectToAction("Registro","Usuario");
-        }
-         var listaLibros = _context.Libros.ToList();
-        return View(nuevolibro);
-
+        return RedirectToAction("register", "Libro");
+    }
+    var listaLibros = _context.Libros.ToList();
+    return View(nuevolibro);
     }
     [HttpPost]
     public IActionResult Editar(Libro libroActualizado)
@@ -64,15 +66,15 @@ public class LibroController : Controller
         }
         return View(libroActualizado);
     }
-    public IActionResult Eliminar(string codlibro)
+   public IActionResult Eliminar(string codlibro)
     {
-        var libro = _context.Libros.FirstOrDefault(l => l.Codlibro == codlibro);
-        if (libro != null)
-        {
-            _context.Libros.Remove(libro);
-            _context.SaveChanges();
-        }
-        return RedirectToAction("register"); 
+    var libro = _context.Libros.FirstOrDefault(l => l.Codlibro == codlibro);
+    if (libro != null)
+    {
+        libro.Estado = "Inactivo"; // ← string en vez de false
+        _context.SaveChanges();
+    }
+    return RedirectToAction("register"); 
     }
           
 }

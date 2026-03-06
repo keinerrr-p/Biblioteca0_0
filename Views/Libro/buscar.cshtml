@@ -17,12 +17,12 @@
             <td><strong>Título:</strong> @Model.Titulo</td>
             <td><strong>Autor:</strong> @Model.Autor</td>
             <td>
-                <a asp-action="Editar" asp-route-id="@Model.Codlibro" class="btn btn-warning">Editar</a>
+                <a asp-action="Editar" asp-route-id="@Model.Codlibro" class="btn btn-primary">Editar</a>
                 
                 <form asp-action="Eliminar" method="post" style="display:inline;" 
                       onsubmit="return confirm('¿Estás seguro de eliminar este libro?');">
                     <input type="hidden" name="Codlibro" value="@Model.Codlibro" />
-                    <button type="submit" class="btn btn-danger">Borrar</button>
+                    <button type="submit" class="btn btn-primary">Borrar</button>
                 </form>
             </td>
         </tr>

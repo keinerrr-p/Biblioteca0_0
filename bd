@@ -14,7 +14,6 @@ create table libros(
 idlibro int primary key auto_increment,
 codlibro varchar(50) unique,
 titulo varchar(50),
-autor varchar(20) default 'anonimo',
 publicacion datetime,
 genero varchar(50)
 );
