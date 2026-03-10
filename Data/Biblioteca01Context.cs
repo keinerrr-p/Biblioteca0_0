@@ -88,6 +88,9 @@ public partial class Biblioteca01Context : DbContext
             entity.Property(e => e.Titulo)
                 .HasMaxLength(50)
                 .HasColumnName("titulo");
+            entity.Property(e => e.Año)
+                .HasMaxLength(50)
+                .HasColumnName("año");
         });
 
         modelBuilder.Entity<Prestamo>(entity =>
@@ -100,10 +103,15 @@ public partial class Biblioteca01Context : DbContext
 
             entity.HasIndex(e => e.Idusuario, "idusuario");
 
+            entity.HasIndex(e => e.Codigo, "codlibro").IsUnique();
+
             entity.Property(e => e.Idprestamo).HasColumnName("idprestamo");
             entity.Property(e => e.Estado)
                 .HasColumnType("enum('Bueno','Regular','dañado')")
                 .HasColumnName("estado");
+            entity.Property(e => e.Codigo)
+                .HasMaxLength(100)
+                .HasColumnName("codigo");
             entity.Property(e => e.Fecha)
                 .HasColumnType("datetime")
                 .HasColumnName("fecha");
@@ -141,6 +149,9 @@ public partial class Biblioteca01Context : DbContext
             entity.Property(e => e.Telefono)
                 .HasMaxLength(20)
                 .HasColumnName("telefono");
+            entity.Property(e => e.Contraseña)
+                .HasMaxLength(20)
+                .HasColumnName("contraseña");
             entity.Property(e => e.TipoDoc)
                 .HasColumnType("enum('TI','CC','PPT')")
                 .HasColumnName("tipoDoc");

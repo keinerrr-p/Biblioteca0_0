@@ -10,6 +10,7 @@ public partial class Prestamo
     public int? Idusuario { get; set; }
 
     public int? Idlibro { get; set; }
+    public string? Codigo { get; set; }
 
     public DateTime? Fecha { get; set; }
 
@@ -22,4 +23,10 @@ public partial class Prestamo
     public virtual Libro? IdlibroNavigation { get; set; }
 
     public virtual Usuario? IdusuarioNavigation { get; set; }
+    public enum EstadoPrestamo
+    {
+        Bueno,
+        Regular,
+        dañado
+    }
 }

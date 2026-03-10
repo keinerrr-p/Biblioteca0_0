@@ -11,6 +11,12 @@
         <form asp-controller="Prestamo" asp-action="register" method="post">
 
             <div class="form-group mb-3">
+                <label asp-for="Codigo" class="control-label">Codigo de Prestamo</label>
+                <input asp-for="Codigo" class="form-control" placeholder="Codigo de libro" />
+                <span asp-validation-for="Codigo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
                 <label>Libro</label>
                 <select name="Idlibro" class="form-control">
                     <option value="">-- Seleccione un libro --</option>
@@ -32,10 +38,15 @@
                 </select>
             </div>
 
-            <div class="form-group mb-3">
-                <label>Estado</label>
-                <input name="Estado" class="form-control" />
-            </div>
+             <div class="form-group mb-3">
+                <label asp-for="Estado" class="control-label">Estado del Préstamo</label>
+                <select asp-for="Estado" 
+                        asp-items="Html.GetEnumSelectList<Prestamo.EstadoPrestamo>()" 
+                        class="form-control">
+                    <option value="">-- Seleccione un estado --</option>
+                </select>
+            </div>    
+
 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Guardar Préstamo</button>
@@ -49,10 +60,11 @@
 <table class="table">
     <thead>
         <tr>
-            <th>ID</th>
+            <th>Codigo</th>
             <th>Libro</th>
             <th>Usuario</th>
             <th>Fecha</th>
+            <th>Estado</th>
             <th>Acciones</th>
         </tr>
     </thead>
@@ -60,10 +72,11 @@
         @foreach (var p in ViewBag.ListaPrestamos)
         {
             <tr>
-                <td>@p.Idprestamo</td>
+                <td>@p.Codigo</td>
                 <td>@(p.IdlibroNavigation?.Titulo)</td>
                 <td>@(p.IdusuarioNavigation?.Nombre)</td>
                 <td>@p.Fecha</td>
+                <td>@p.Estado</td>
                 <td>
                     <a asp-action="Buscar" asp-route-id="@p.Idprestamo" class="btn btn-info">Ver</a>
                     <a asp-action="Editar" asp-route-id="@p.Idprestamo" class="btn btn-warning">Editar</a>

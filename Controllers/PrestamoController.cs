@@ -47,14 +47,14 @@ public class PrestamoController : Controller
         return View(nuevo);
     }
 
-    public IActionResult Buscar(int? id)
+    public IActionResult Buscar(string? codigo)
     {
-        if (id == null) return View("Buscar");
+        if (codigo == null) return View("Buscar");
 
         var prestamo = _context.Prestamos
             .Include(p => p.IdlibroNavigation)
             .Include(p => p.IdusuarioNavigation)
-            .FirstOrDefault(p => p.Idprestamo == id);
+            .FirstOrDefault(p => p.Codigo == codigo);
 
         if (prestamo == null) return View("Buscar");
 

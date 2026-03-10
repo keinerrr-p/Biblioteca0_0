@@ -1,6 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Biblioteca0_0.Models;
 using Biblioteca0_0.Data;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using System.IO;
+
 
 namespace Biblioteca0_0.Controllers;
 
@@ -76,5 +81,41 @@ public class LibroController : Controller
     }
     return RedirectToAction("register"); 
     }
+    public IActionResult GenerarPDF()
+{
+    var libros = _context.Libros.ToList(); // tus datos actuales
+
+    using (MemoryStream ms = new MemoryStream())
+    {
+        PdfWriter writer = new PdfWriter(ms);
+        PdfDocument pdf = new PdfDocument(writer);
+        Document document = new Document(pdf);
+
+        document.Add(new Paragraph("Reporte de Libros"));
+        document.Add(new Paragraph(" "));
+
+        Table tabla = new Table(5);
+
+        tabla.AddCell("Código");
+        tabla.AddCell("Titulo");
+        tabla.AddCell("Autor");
+        tabla.AddCell("Año");
+        tabla.AddCell("fecha de registro");
+
+        foreach (var libro in libros)
+        {
+            tabla.AddCell(libro.Codlibro);
+            tabla.AddCell(libro.Titulo);
+            tabla.AddCell(libro.Autor);
+            tabla.AddCell(libro.Año);
+            tabla.AddCell(libro.Publicacion.ToString());
+        }
+        document.Add(tabla);
+        document.Close();
+
+        return File(ms.ToArray(), "application/pdf", "ReporteLibros.pdf");
+    }
+}
+   
           
 }

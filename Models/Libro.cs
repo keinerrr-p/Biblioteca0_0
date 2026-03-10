@@ -14,10 +14,12 @@ public partial class Libro
     public string? Autor { get; set; }
 
     public string Estado { get; set; } = "Activo";
+    public string? Año { get; set; }
 
     public DateTime? Publicacion { get; set; } = DateTime.Now;
 
     public string? Genero { get; set; }
 
     public virtual ICollection<Prestamo> Prestamos { get; set; } = new List<Prestamo>();
+    
 }

@@ -18,6 +18,11 @@ namespace Biblioteca0_0.Controllers;
     {
         return View();
     }
+    [HttpGet]
+    public IActionResult Login()
+    {
+        return View();
+    }
     public IActionResult Users(string correo)
     {
         var users = _context.Usuarios.FirstOrDefault(u => u.Correo == correo );
@@ -30,42 +35,69 @@ namespace Biblioteca0_0.Controllers;
 
     [HttpPost]
 [ValidateAntiForgeryToken]
-public IActionResult Registro(Usuario nuevoUsuario)
-{
-    if (ModelState.IsValid)
+    public IActionResult Registro(Usuario nuevoUsuario)
     {
-        
-        bool existeCorreo = _context.Usuarios.Any(u => u.Correo == nuevoUsuario.Correo);
-        
-     
-        bool existeDocumento = _context.Usuarios.Any(u => u.NumDoc == nuevoUsuario.NumDoc);
-
-        if (existeCorreo)
+        if (ModelState.IsValid)
         {
+        
+            bool existeCorreo = _context.Usuarios.Any(u => u.Correo == nuevoUsuario.Correo);
             
-            ModelState.AddModelError("Correo", "Este correo electrónico ya está registrado.");
-        }
+        
+            bool existeDocumento = _context.Usuarios.Any(u => u.NumDoc == nuevoUsuario.NumDoc);
 
-        if (existeDocumento)
+            if (existeCorreo)
+            {
+                
+                ModelState.AddModelError("Correo", "Este correo electrónico ya está registrado.");
+            }
+
+            if (existeDocumento)
+            {
+                ModelState.AddModelError("NumDoc", "Este número de documento ya existe.");
+            }
+
+            
+            if (existeCorreo || existeDocumento)
+            {
+                return View(nuevoUsuario);
+            }
+
+            
+            _context.Usuarios.Add(nuevoUsuario);
+            _context.SaveChanges();
+            
+            return RedirectToAction("Login", "Usuario");
+        }
+        return View(nuevoUsuario);
+    }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Login(string correo, string contraseña)
+    {
+        // Buscamos el usuario que coincida con ambos campos
+        var usuario = _context.Usuarios
+            .FirstOrDefault(u => u.Correo == correo && u.Contraseña == contraseña);
+
+        if (usuario != null)
         {
-            ModelState.AddModelError("NumDoc", "Este número de documento ya existe.");
+            // Creamos la sesión
+            HttpContext.Session.SetInt32("UsuarioId", usuario.Idusuario);
+            HttpContext.Session.SetString("UsuarioNombre", usuario.Nombre);
+
+            return RedirectToAction("register", "Libro");
         }
 
-        
-        if (existeCorreo || existeDocumento)
-        {
-            return View(nuevoUsuario);
-        }
-
-        
-        _context.Usuarios.Add(nuevoUsuario);
-        _context.SaveChanges();
-        
-        return RedirectToAction("Index", "Home");
+        // Si falla, mandamos un mensaje de error a la vista
+        ViewBag.Error = "Correo o contraseña incorrectos.";
+        return View();
     }
 
-    return View(nuevoUsuario);
-}
+    // --- LOGOUT ---
+    public IActionResult Logout()
+    {
+        HttpContext.Session.Clear();
+        return RedirectToAction("Login");
+    }
 }
 
 

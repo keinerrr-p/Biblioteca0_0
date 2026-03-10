@@ -3,7 +3,7 @@
 <h2>Buscar Préstamo</h2>
 
 <form method="get" action="/Prestamo/Buscar">
-    <input type="number" name="id" placeholder="ID de préstamo" />
+    <input type="number" name="Codigo" placeholder="Codigo de préstamo" />
     <button type="submit" class="btn btn-primary">Buscar</button>
 </form>
 
@@ -13,10 +13,11 @@
     <h3>Resultado</h3>
     <table class="table">
         <tr>
-            <td><strong>ID:</strong> @Model.Idprestamo</td>
+            <td><strong>Codigo:</strong> @Model.Codigo</td>
             <td><strong>Libro:</strong> @Model.IdlibroNavigation?.Titulo</td>
             <td><strong>Usuario:</strong> @Model.IdusuarioNavigation?.Nombre</td>
             <td><strong>Fecha:</strong> @Model.Fecha</td>
+            <td><strong>Estado:</strong> @Model.Estado</td>
             <td>
                 <a asp-action="Editar" asp-route-id="@Model.Idprestamo" class="btn btn-warning">Editar</a>
             </td>
